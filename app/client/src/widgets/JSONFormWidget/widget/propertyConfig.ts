@@ -16,6 +16,7 @@ import {
   SUCCESSFULL_BINDING_MESSAGE,
 } from "../constants/messages";
 import { createMessage } from "ee/constants/messages";
+import { contentPaddingValidation } from "widgets/contentPaddingUtils";
 import { FieldOptionsType } from "components/editorComponents/WidgetQueryGeneratorForm/WidgetSpecificControls/OtherFields/Field/Dropdown/types";
 import { DROPDOWN_VARIANT } from "components/editorComponents/WidgetQueryGeneratorForm/CommonControls/DatasourceDropdown/types";
 
@@ -659,7 +660,7 @@ export const styleConfig = [
     ],
   },
   {
-    sectionName: "Border and shadow",
+    sectionName: "Border, shadow & padding",
     children: [
       {
         propertyName: "borderWidth",
@@ -670,6 +671,27 @@ export const styleConfig = [
         isBindProperty: true,
         isTriggerProperty: false,
         validation: { type: ValidationTypes.NUMBER },
+      },
+      {
+        helpText:
+          "Space between the border and the form body (where fields render), in pixels. Use one value for all sides, or 2–4 values for top, right, bottom, left (e.g. 10 20 10 20).",
+        propertyName: "contentPadding",
+        label: "Padding (px)",
+        placeholderText: "e.g. 10 or 10 20 10 20",
+        controlType: "INPUT_TEXT",
+        isBindProperty: true,
+        isTriggerProperty: false,
+        validation: {
+          type: ValidationTypes.FUNCTION,
+          params: {
+            fn: contentPaddingValidation,
+            default: "25",
+            expected: {
+              type: "1–4 space-separated numbers (px)",
+              example: "10 or 10 20 10 20",
+            },
+          },
+        },
       },
       {
         propertyName: "borderRadius",

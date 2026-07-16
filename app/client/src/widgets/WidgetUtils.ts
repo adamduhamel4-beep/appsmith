@@ -1034,3 +1034,8 @@ export function parseDerivedProperties(propertyFns: Record<string, unknown>) {
 
   return derivedProperties;
 }
+
+export {
+  parseContentPadding,
+  contentPaddingValidation,
+} from "./contentPaddingUtils";

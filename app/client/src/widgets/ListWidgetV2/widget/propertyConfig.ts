@@ -13,6 +13,10 @@ import {
   LIST_WIDGET_V2_TOTAL_RECORD_TOOLTIP,
   createMessage,
 } from "ee/constants/messages";
+import {
+  contentPaddingValidation,
+  DEFAULT_CONTENT_PADDING,
+} from "widgets/contentPaddingUtils";
 
 const MIN_ITEM_SPACING = 0;
 const MAX_ITEM_SPACING = 16;
@@ -472,8 +476,29 @@ export const PropertyPaneStyleConfig = [
     ],
   },
   {
-    sectionName: "Border and shadow",
+    sectionName: "Border, shadow & padding",
     children: [
+      {
+        helpText:
+          "Space between the list border and the scrollable content, in pixels. Use one value for all sides, or 2–4 values for top, right, bottom, left (e.g. 10 20 10 20). Does not affect spacing between list items.",
+        propertyName: "contentPadding",
+        label: "Padding (px)",
+        placeholderText: "e.g. 10 or 10 20 10 20",
+        controlType: "INPUT_TEXT",
+        isBindProperty: true,
+        isTriggerProperty: false,
+        validation: {
+          type: ValidationTypes.FUNCTION,
+          params: {
+            fn: contentPaddingValidation,
+            default: DEFAULT_CONTENT_PADDING,
+            expected: {
+              type: "1–4 space-separated numbers (px)",
+              example: "10 or 10 20 10 20",
+            },
+          },
+        },
+      },
       {
         propertyName: "borderRadius",
         label: "Border radius",
